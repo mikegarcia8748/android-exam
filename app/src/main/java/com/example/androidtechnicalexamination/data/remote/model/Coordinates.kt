@@ -1,15 +1,15 @@
 package com.example.androidtechnicalexamination.data.remote.model
 
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
 
 @Keep
 @Serializable
 data class Coordinates(
-    @SerialName("latitude")
-    val latitude: String?,
-    @SerialName("longitude")
-    val longitude: String?
+    @SerializedName("latitude")
+    val latitude: String? = null,
+    @SerializedName("longitude")
+    val longitude: String? = null
 )

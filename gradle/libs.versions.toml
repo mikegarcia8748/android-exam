@@ -51,6 +51,7 @@ kotlin-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serial
 timber-logging = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber-version" }
 
 androidx-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "livedata-version" }
+androidx-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "livedata-version" }
 
 devtools-ksp = { group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "ksp-version" }
 

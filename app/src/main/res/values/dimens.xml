@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="view_padding_8">8dp</dimen>
+    <dimen name="view_padding_12">12dp</dimen>
+    <dimen name="view_padding_16">16dp</dimen>
+    <dimen name="view_padding_20">20dp</dimen>
+    <dimen name="view_padding_24">24dp</dimen>
+    <dimen name="view_padding_28">28dp</dimen>
+    <dimen name="view_padding_32">32dp</dimen>
+    <dimen name="view_padding_36">36dp</dimen>
+
+    <dimen name="text_title">28sp</dimen>
+    <dimen name="text_header1">26sp</dimen>
+    <dimen name="text_header2">22sp</dimen>
+    <dimen name="text_header3">18sp</dimen>
+    <dimen name="text_header4">16sp</dimen>
+    <dimen name="text_body">14sp</dimen>
+    <dimen name="text_footer">14sp</dimen>
+</resources>

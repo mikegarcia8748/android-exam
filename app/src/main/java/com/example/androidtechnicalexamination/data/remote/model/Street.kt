@@ -1,15 +1,15 @@
 package com.example.androidtechnicalexamination.data.remote.model
 
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
 
 @Keep
 @Serializable
 data class Street(
-    @SerialName("name")
-    val name: String?,
-    @SerialName("number")
-    val number: Int?
+    @SerializedName("name")
+    val name: String? = null,
+    @SerializedName("number")
+    val number: String? = null
 )

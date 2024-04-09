@@ -1,15 +1,15 @@
 package com.example.androidtechnicalexamination.data.remote.model
 
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
 
 @Keep
 @Serializable
 data class Timezone(
-    @SerialName("description")
-    val description: String?,
-    @SerialName("offset")
-    val offset: String?
+    @SerializedName("description")
+    val description: String? = null,
+    @SerializedName("offset")
+    val offset: String? = null
 )

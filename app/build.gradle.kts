@@ -69,6 +69,7 @@ dependencies {
 
     implementation(libs.timber.logging)
     implementation(libs.androidx.livedata)
+    implementation(libs.androidx.viewmodel)
 
     implementation(libs.devtools.ksp)
 }

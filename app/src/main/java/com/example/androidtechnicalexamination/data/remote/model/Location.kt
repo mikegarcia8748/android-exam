@@ -1,25 +1,25 @@
 package com.example.androidtechnicalexamination.data.remote.model
 
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
 
 @Keep
 @Serializable
 data class Location(
-    @SerialName("city")
-    val city: String?,
-    @SerialName("coordinates")
-    val coordinates: Coordinates?,
-    @SerialName("country")
-    val country: String?,
-    @SerialName("postcode")
-    val postcode: String?,
-    @SerialName("state")
-    val state: String?,
-    @SerialName("street")
-    val street: Street?,
-    @SerialName("timezone")
-    val timezone: Timezone?
+    @SerializedName("city")
+    val city: String? = null,
+    @SerializedName("coordinates")
+    val coordinates: Coordinates? = null,
+    @SerializedName("country")
+    val country: String? = null,
+    @SerializedName("postcode")
+    val postcode: String? = null,
+    @SerializedName("state")
+    val state: String? = null,
+    @SerializedName("street")
+    val street: Street? = null,
+    @SerializedName("timezone")
+    val timezone: Timezone? = null
 )

@@ -1,6 +1,7 @@
 package com.example.androidtechnicalexamination.di
 
 import android.app.Application
+import com.example.androidtechnicalexamination.BuildConfig
 import com.example.androidtechnicalexamination.data.remote.ApiService
 import com.example.androidtechnicalexamination.data.remote.interceptor.DefaultInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -14,6 +15,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -30,14 +32,19 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideHttpLoggingInterceptor(app: Application) : HttpLoggingInterceptor {
+    fun provideHttpLoggingInterceptor() : HttpLoggingInterceptor {
         return HttpLoggingInterceptor().apply {
-
-            // A condition can be add here for more
-            // secure logging of process for debugging purposes...
-            HttpLoggingInterceptor.Level.BODY
+            level = if (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor.Level.BODY
+            } else {
+                HttpLoggingInterceptor.Level.NONE
+            }
         }
     }
+
+    @Singleton
+    @Provides
+    fun provideDefaultInterceptor() = DefaultInterceptor()
 
     @Singleton
     @Provides
@@ -68,7 +75,7 @@ class AppModule {
     fun provideRetrofit(okHttpClient: OkHttpClient, json: Json): Retrofit =
         Retrofit.Builder()
             .baseUrl("https://randomuser.me")
-            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+            .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
 

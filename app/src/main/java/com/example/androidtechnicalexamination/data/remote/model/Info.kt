@@ -7,9 +7,13 @@ import kotlinx.serialization.Serializable
 
 @Keep
 @Serializable
-data class PersonModel(
-    @SerializedName("info")
-    val info: Info? = null,
+data class Info(
+    @SerializedName("page")
+    val page: String? = null,
     @SerializedName("results")
-    val results: List<Result?>? = null
+    val results: String? = null,
+    @SerializedName("seed")
+    val seed: String? = null,
+    @SerializedName("version")
+    val version: String? = null
 )

@@ -37,6 +37,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -64,6 +65,7 @@ dependencies {
     implementation(libs.interceptor)
     implementation(libs.retrofit.adapter)
     implementation(libs.retrofit.kotlin.serialization)
+    implementation(libs.kotlin.serialization)
 
     implementation(libs.timber.logging)
     implementation(libs.androidx.livedata)

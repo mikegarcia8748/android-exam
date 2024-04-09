@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.androidtechnicalexamination.data.room.RoomDB
-import com.example.androidtechnicalexamination.data.room.person.PersonDao
+import com.example.androidtechnicalexamination.data.room.user.UsersDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,7 +32,7 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun providePersonDao(db: RoomDB) : PersonDao {
+    fun providePersonDao(db: RoomDB) : UsersDao {
         return db.personDao()
     }
 }

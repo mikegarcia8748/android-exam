@@ -72,4 +72,8 @@ dependencies {
     implementation(libs.androidx.viewmodel)
 
     implementation(libs.devtools.ksp)
+
+    implementation(libs.picasso)
+
+    implementation(libs.swiperefresh)
 }

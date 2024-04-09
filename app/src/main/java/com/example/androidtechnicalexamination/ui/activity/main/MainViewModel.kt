@@ -5,52 +5,140 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidtechnicalexamination.data.remote.Resource
-import com.example.androidtechnicalexamination.data.remote.repository.PersonRepository
-import com.example.androidtechnicalexamination.data.room.person.PersonEntity
+import com.example.androidtechnicalexamination.data.remote.repository.UsersRepository
+import com.example.androidtechnicalexamination.data.room.user.UserEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val personRepository: PersonRepository
+    private val userRepository: UsersRepository
 ) : ViewModel() {
 
-    private val isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
     private val errorMessage: MutableLiveData<String> = MutableLiveData("")
-    private val personList: MutableLiveData<List<PersonEntity>> = MutableLiveData(emptyList())
+    private val isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
+    private val isRefreshing: MutableLiveData<Boolean> = MutableLiveData(false)
 
     init {
-        importPersonList()
+        importUserList()
     }
 
     fun getErrorMessage() : LiveData<String> {
         return errorMessage
     }
 
-    fun getPersonList() : LiveData<List<PersonEntity>> {
-        return personList
+    fun getUserListForPreview() : LiveData<List<UserEntity>> {
+        return userRepository.getUsersList()
     }
 
     fun isLoading() : LiveData<Boolean> {
         return isLoading
     }
+    fun isRefreshing() : LiveData<Boolean> {
+        return isRefreshing
+    }
 
-    private fun importPersonList() {
+    private fun importUserList() {
         viewModelScope.launch {
-            personRepository.getPersonList().collect { response ->
+
+            // Validate if the local cache has existing records of users...
+            val hasUsers = userRepository.getUsers().isNotEmpty()
+            if (!hasUsers) {
+                userRepository.importUsersList().collect { response ->
+                    when (response) {
+                        is Resource.Success -> {
+                            isLoading.value = false
+
+                            response.data?.results?.forEach { result ->
+                                val personEntity = UserEntity(
+                                    firstName = result?.name?.first,
+                                    lastName = result?.name?.last,
+                                    birthday = result?.dob?.date,
+                                    emailAddress = result?.email,
+                                    mobileNo = result?.cell,
+                                    address = "",
+                                    street = result?.location?.street?.name,
+                                    number = result?.location?.street?.number,
+                                    city = result?.location?.city,
+                                    state = result?.location?.state,
+                                    country = result?.location?.country,
+                                    postCode = result?.location?.postcode,
+                                    longitude = result?.location?.coordinates?.longitude,
+                                    latitude = result?.location?.coordinates?.latitude,
+                                    timeZone = result?.location?.timezone?.offset,
+                                    timeZoneDescription = result?.location?.timezone?.description,
+                                    contactPerson = response.data.info?.seed,
+                                    contactPersonMobileNo = response.data.info?.seed,
+                                    largeImage = result?.picture?.large,
+                                    mediumImage = result?.picture?.large,
+                                    thumbnail = result?.picture?.large,
+                                )
+                                userRepository.savePerson(personEntity)
+                            }
+                        }
+
+                        is Resource.Loading -> {
+                            isLoading.value = true
+                        }
+
+                        // Error Handling...
+                        else -> {
+                            isLoading.value = false
+                            errorMessage.value = response.error?.message
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    fun refreshUserList() {
+        viewModelScope.launch {
+
+            userRepository.clearUserCache()
+
+            userRepository.importUsersList().collect { response ->
                 when (response) {
                     is Resource.Success -> {
+                        isRefreshing.value = false
 
+                        response.data?.results?.forEach { result ->
+                            val personEntity = UserEntity(
+                                firstName = result?.name?.first,
+                                lastName = result?.name?.last,
+                                birthday = result?.dob?.date,
+                                emailAddress = result?.email,
+                                mobileNo = result?.cell,
+                                address = "",
+                                street = result?.location?.street?.name,
+                                number = result?.location?.street?.number,
+                                city = result?.location?.city,
+                                state = result?.location?.state,
+                                country = result?.location?.country,
+                                postCode = result?.location?.postcode,
+                                longitude = result?.location?.coordinates?.longitude,
+                                latitude = result?.location?.coordinates?.latitude,
+                                timeZone = result?.location?.timezone?.offset,
+                                timeZoneDescription = result?.location?.timezone?.description,
+                                contactPerson = response.data.info?.seed,
+                                contactPersonMobileNo = response.data.info?.seed,
+                                largeImage = result?.picture?.large,
+                                mediumImage = result?.picture?.large,
+                                thumbnail = result?.picture?.large,
+                            )
+                            userRepository.savePerson(personEntity)
+                        }
                     }
 
                     is Resource.Loading -> {
-                        isLoading.value = true
+                        isRefreshing.value = true
                     }
 
                     // Error Handling...
                     else -> {
-                        isLoading.value = false
+                        isRefreshing.value = false
                         errorMessage.value = response.error?.message
                     }
                 }

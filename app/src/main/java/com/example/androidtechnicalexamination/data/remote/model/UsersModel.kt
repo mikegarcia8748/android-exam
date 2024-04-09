@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 
 @Keep
 @Serializable
-data class PersonModel(
+data class UsersModel(
     @SerializedName("info")
     val info: Info? = null,
     @SerializedName("results")

@@ -1,13 +1,17 @@
 package com.example.androidtechnicalexamination.ui.activity.main
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.androidtechnicalexamination.R
 import com.example.androidtechnicalexamination.databinding.ActivityMainBinding
+import com.example.androidtechnicalexamination.ui.component.UsersListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,12 +27,41 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        viewModel?.getPersonList()?.observe(this) { personList ->
+        binding?.main?.setOnRefreshListener {
+            viewModel?.refreshUserList()
+        }
 
+        viewModel?.getUserListForPreview()?.observe(this) { userList ->
+            if (userList.isEmpty()) {
+                return@observe
+            }
+
+            val layoutManager: LinearLayoutManager = LinearLayoutManager(this)
+            layoutManager.orientation = RecyclerView.VERTICAL
+
+            val userAdapter = UsersListAdapter(
+                userList = userList,
+                onUserClick = {
+
+                }
+            )
+
+            binding?.userListRecyclerview?.layoutManager = layoutManager
+            binding?.userListRecyclerview?.adapter = userAdapter
         }
 
         viewModel?.isLoading()?.observe(this) { isLoading ->
+            if (isLoading) {
+                binding?.loadingLayout?.visibility = View.VISIBLE
+                binding?.contentScrollView?.visibility = View.GONE
+            } else {
+                binding?.loadingLayout?.visibility = View.GONE
+                binding?.contentScrollView?.visibility = View.VISIBLE
+            }
+        }
 
+        viewModel?.isRefreshing()?.observe(this) { isRefreshing ->
+            binding?.main?.isRefreshing = isRefreshing
         }
 
         viewModel?.getErrorMessage()?.observe(this) { errorMessage ->

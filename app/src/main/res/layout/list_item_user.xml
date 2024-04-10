@@ -2,10 +2,12 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/main"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="@dimen/view_padding_16"
     app:cardUseCompatPadding="true"
     app:cardElevation="@dimen/card_elevation_2"
+    app:strokeColor="@android:color/transparent"
     app:cardPreventCornerOverlap="true">
 
     <LinearLayout

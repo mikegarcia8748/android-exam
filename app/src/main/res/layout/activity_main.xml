@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="@dimen/view_padding_24"
     tools:context=".ui.activity.main.MainActivity">
 
     <LinearLayout
@@ -50,7 +51,9 @@
                     app:cardElevation="@dimen/card_elevation_2"
                     app:cardUseCompatPadding="true"
                     app:cardCornerRadius="@dimen/view_padding_24"
-                    app:cardPreventCornerOverlap="true">
+                    app:cardPreventCornerOverlap="true"
+                    android:layout_marginHorizontal="@dimen/view_padding_16"
+                    app:strokeColor="@android:color/transparent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -78,7 +81,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/view_padding_16"
-                            android:text="@string/welcome"
+                            android:text="@string/label_welcome"
                             android:textSize="@dimen/text_title"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
@@ -117,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:scrollbars="none"
                     android:layout_marginTop="@dimen/view_padding_8"
-                    android:layout_marginHorizontal="@dimen/view_padding_8"/>
+                    android:layout_marginHorizontal="@dimen/view_padding_16"/>
 
             </LinearLayout>
 

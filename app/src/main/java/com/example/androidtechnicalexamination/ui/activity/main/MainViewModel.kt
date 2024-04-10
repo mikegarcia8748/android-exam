@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val userRepository: UsersRepository
+    private val repository: UsersRepository
 ) : ViewModel() {
 
     private val errorMessage: MutableLiveData<String> = MutableLiveData("")
@@ -29,7 +29,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun getUserListForPreview() : LiveData<List<UserEntity>> {
-        return userRepository.getUsersList()
+        return repository.getUsersList()
     }
 
     fun isLoading() : LiveData<Boolean> {
@@ -43,9 +43,9 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
 
             // Validate if the local cache has existing records of users...
-            val hasUsers = userRepository.getUsers().isNotEmpty()
+            val hasUsers = repository.getUsers().isNotEmpty()
             if (!hasUsers) {
-                userRepository.importUsersList().collect { response ->
+                repository.importUsersList().collect { response ->
                     when (response) {
                         is Resource.Success -> {
                             isLoading.value = false
@@ -74,7 +74,7 @@ class MainViewModel @Inject constructor(
                                     mediumImage = result?.picture?.large,
                                     thumbnail = result?.picture?.large,
                                 )
-                                userRepository.savePerson(personEntity)
+                                repository.savePerson(personEntity)
                             }
                         }
 
@@ -97,9 +97,9 @@ class MainViewModel @Inject constructor(
     fun refreshUserList() {
         viewModelScope.launch {
 
-            userRepository.clearUserCache()
+            repository.clearUserCache()
 
-            userRepository.importUsersList().collect { response ->
+            repository.importUsersList().collect { response ->
                 when (response) {
                     is Resource.Success -> {
                         isRefreshing.value = false
@@ -128,7 +128,7 @@ class MainViewModel @Inject constructor(
                                 mediumImage = result?.picture?.large,
                                 thumbnail = result?.picture?.large,
                             )
-                            userRepository.savePerson(personEntity)
+                            repository.savePerson(personEntity)
                         }
                     }
 

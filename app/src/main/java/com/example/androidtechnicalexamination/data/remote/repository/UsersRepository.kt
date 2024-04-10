@@ -26,11 +26,11 @@ class UsersRepository @Inject constructor(
         }
     )
 
-    fun savePerson(personEntity: UserEntity) {
-        userDao.savePerson(personEntity)
-    }
+    fun savePerson(personEntity: UserEntity) = userDao.savePerson(personEntity)
 
     fun clearUserCache() {
         userDao.clearUserCache()
     }
+
+    fun getUserDetail(uid: String) = userDao.getUserDetail(uid)
 }

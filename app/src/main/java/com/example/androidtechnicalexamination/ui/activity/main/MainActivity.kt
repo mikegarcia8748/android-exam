@@ -1,5 +1,6 @@
 package com.example.androidtechnicalexamination.ui.activity.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -10,14 +11,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidtechnicalexamination.R
+import com.example.androidtechnicalexamination.constants.Constants.INTENT_USER_UID
 import com.example.androidtechnicalexamination.databinding.ActivityMainBinding
+import com.example.androidtechnicalexamination.ui.activity.persondetail.PersonDetailActivity
 import com.example.androidtechnicalexamination.ui.component.UsersListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    var binding: ActivityMainBinding? = null
+    private var binding: ActivityMainBinding? = null
     private var viewModel: MainViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,13 +39,15 @@ class MainActivity : AppCompatActivity() {
                 return@observe
             }
 
-            val layoutManager: LinearLayoutManager = LinearLayoutManager(this)
+            val layoutManager = LinearLayoutManager(this)
             layoutManager.orientation = RecyclerView.VERTICAL
 
             val userAdapter = UsersListAdapter(
                 userList = userList,
                 onUserClick = {
-
+                    val intent = Intent(this, PersonDetailActivity::class.java)
+                    intent.putExtra(INTENT_USER_UID, it)
+                    startActivity(intent)
                 }
             )
 
@@ -50,6 +55,7 @@ class MainActivity : AppCompatActivity() {
             binding?.userListRecyclerview?.adapter = userAdapter
         }
 
+        // Handles the preview of loading screen when no records on local is available...
         viewModel?.isLoading()?.observe(this) { isLoading ->
             if (isLoading) {
                 binding?.loadingLayout?.visibility = View.VISIBLE

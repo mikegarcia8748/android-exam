@@ -14,6 +14,9 @@ interface UsersDao {
     @Query("SELECT * FROM User_Info")
     fun getUsers() : List<UserEntity>
 
+    @Query("SELECT * FROM User_Info WHERE uid=:uid")
+    fun getUserDetail(uid: String) : LiveData<UserEntity>
+
     @Query("SELECT * FROM User_Info ")
     fun getUsersList(): LiveData<List<UserEntity>>
 

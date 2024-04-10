@@ -31,7 +31,8 @@ class UsersListAdapter constructor(
         val city = user.city
         val country = user.country
         holder.binding.lblUserAddress.text = "$city, $country"
-        Picasso.get().load(user.thumbnail).into(holder.binding.imgUser);
+        Picasso.get().load(user.thumbnail).into(holder.binding.imgUser)
+        holder.binding.main.setOnClickListener { onUserClick(user.uid.toString()) }
     }
 
     class UserItemViewHolder(val binding: ListItemUserBinding) : ViewHolder(binding.root) { }

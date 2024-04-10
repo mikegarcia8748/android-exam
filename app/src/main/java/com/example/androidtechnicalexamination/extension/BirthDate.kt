@@ -22,10 +22,15 @@ fun String.getAge(): String {
 
 @SuppressLint("NewApi")
 fun String.toUiPreview(): String {
-    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-    val date = LocalDateTime.parse(this, formatter)
+    return try {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        val date = LocalDateTime.parse(this, formatter)
 
-    // Convert to the desired output format
-    val outputFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy", Locale.ENGLISH)
-    return date.atOffset(ZoneOffset.UTC).format(outputFormatter)
+        // Convert to the desired output format
+        val outputFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy", Locale.ENGLISH)
+        date.atOffset(ZoneOffset.UTC).format(outputFormatter)
+    } catch (e: Exception) {
+        e.printStackTrace()
+        ""
+    }
 }

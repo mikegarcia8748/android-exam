@@ -51,9 +51,13 @@ class MainViewModel @Inject constructor(
                             isLoading.value = false
 
                             response.data?.results?.forEach { result ->
+
+                                val firstName = result?.name?.first
+                                val lastName = result?.name?.last
+
                                 val personEntity = UserEntity(
-                                    firstName = result?.name?.first,
-                                    lastName = result?.name?.last,
+                                    firstName = firstName,
+                                    lastName = lastName,
                                     birthday = result?.dob?.date,
                                     emailAddress = result?.email,
                                     mobileNo = result?.cell,
@@ -68,8 +72,8 @@ class MainViewModel @Inject constructor(
                                     latitude = result?.location?.coordinates?.latitude,
                                     timeZone = result?.location?.timezone?.offset,
                                     timeZoneDescription = result?.location?.timezone?.description,
-                                    contactPerson = response.data.info?.seed,
-                                    contactPersonMobileNo = response.data.info?.seed,
+                                    contactPerson = "$firstName $lastName", // Contact Person and Mobile No for contact person doesn't exist in the data provided by the API...
+                                    contactPersonMobileNo = result?.cell, // Contact Person and Mobile No for contact person doesn't exist in the data provided by the API...
                                     largeImage = result?.picture?.large,
                                     mediumImage = result?.picture?.large,
                                     thumbnail = result?.picture?.large,

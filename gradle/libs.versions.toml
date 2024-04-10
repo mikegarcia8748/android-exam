@@ -22,6 +22,9 @@ retrofit-adapter-version = "3.0.0"
 retrofit-kotlin-serialization-version = "1.0.0"
 timber-version = "4.7.1"
 livedata-version = "2.7.0"
+kotlin-serialization-version = "1.5.1"
+picasso-version = "2.8"
+swiperefresh-version = "1.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx-version" }
@@ -45,12 +48,18 @@ converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", ve
 interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "interceptor-version" }
 retrofit-adapter = { group = "com.github.akarnokd", name = "rxjava3-retrofit-adapter", version.ref = "retrofit-adapter-version" }
 retrofit-kotlin-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofit-kotlin-serialization-version" }
+kotlin-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlin-serialization-version" }
 
 timber-logging = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber-version" }
 
 androidx-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "livedata-version" }
+androidx-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "livedata-version" }
 
 devtools-ksp = { group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "ksp-version" }
+
+picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "picasso-version" }
+
+swiperefresh = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefresh-version" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp-version" }

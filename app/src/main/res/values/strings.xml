@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Android Technical Examination</string>
+
+    <string name="userNamePlaceHolder">Dylan</string>
+    <string name="userAddressPlaceHolder">Taguig City, Metro Manila</string>
+    <string name="userBirthDatePlaceHolder">December 26, 1990</string>
+    <string name="userAgePlaceHolder">34</string>
+    <string name="userEmailPlaceHolder">claude.baker@example.com</string>
+    <string name="userMobileNoPlaceHolder">(470) 938–5262</string>
+    <string name="contactPersonPlaceHolder">Claude Baker</string>
+    <string name="contactPersonMobileNoPlaceHolder">(450) 983–4326</string>
+
+    <string name="hint_search">Search…</string>
+
+    <string name="label_loading_users">Loading users. Please wait…</string>
+    <string name="label_user_greetings">Hi!, My name is</string>
+    <string name="label_welcome">Welcome!</string>
 </resources>

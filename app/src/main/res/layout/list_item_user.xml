@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/main"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/view_padding_16"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="@dimen/card_elevation_2"
+    app:strokeColor="@android:color/transparent"
+    app:cardPreventCornerOverlap="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/view_padding_8">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img_user"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_placeholder"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_weight=".2"
+            app:shapeAppearanceOverlay="@style/RoundedImageView"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/view_padding_8">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/lbl_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/userNamePlaceHolder"
+                android:textSize="@dimen/text_header2"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/lbl_user_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/userAddressPlaceHolder"
+                android:textSize="@dimen/text_header4"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

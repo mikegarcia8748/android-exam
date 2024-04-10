@@ -1,19 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    android:paddingTop="@dimen/view_padding_24"
+    tools:context=".ui.activity.main.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/loadingLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_loading_users"
+                android:layout_marginTop="@dimen/view_padding_16"
+                android:textSize="@dimen/text_header4" />
+
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/contentScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="@dimen/card_elevation_2"
+                    app:cardUseCompatPadding="true"
+                    app:cardCornerRadius="@dimen/view_padding_24"
+                    app:cardPreventCornerOverlap="true"
+                    android:layout_marginHorizontal="@dimen/view_padding_16"
+                    app:strokeColor="@android:color/transparent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/view_padding_16">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/img_user"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/img_user_photo"
+                            app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.18"
+                            app:layout_constraintWidth_percent=".15"
+                            app:shapeAppearanceOverlay="@style/CircularImageView" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/lblWelcome"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/view_padding_16"
+                            android:text="@string/label_welcome"
+                            android:textSize="@dimen/text_title"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+                            app:layout_constraintEnd_toStartOf="@+id/img_user"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/img_user" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_search"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:boxCornerRadiusBottomEnd="@dimen/view_padding_16"
+                            app:boxCornerRadiusBottomStart="@dimen/view_padding_16"
+                            app:boxCornerRadiusTopEnd="@dimen/view_padding_16"
+                            app:boxCornerRadiusTopStart="@dimen/view_padding_16">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txt_search_user"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/userListRecyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:layout_marginTop="@dimen/view_padding_8"
+                    android:layout_marginHorizontal="@dimen/view_padding_16"/>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
